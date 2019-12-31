@@ -1,0 +1,9 @@
+build.xml
+*.user
+
+# Build results
+.harvest/
+[Bb]uild/
+[Ll]ib/
+[Nn]bproject/
+[Ss]etup/

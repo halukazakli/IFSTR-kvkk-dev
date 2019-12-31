@@ -1,0 +1,38 @@
+-----------------------------------------------------------------------------
+--  Module : PIMS
+--
+--  Purpose: <<<Purpose>>>
+--
+--  File   : PimsPostRole.ins
+--
+--  IFS Developer Studio Template Version 2.6
+--
+--  Date     Sign    History
+--  ------   ------  --------------------------------------------------
+--  191231   Haluk   Created.
+--  ------   ------  --------------------------------------------------
+-----------------------------------------------------------------------------
+
+DECLARE
+  info_ VARCHAR2(2000);
+  objid_ VARCHAR2(2000);
+  objversion_ VARCHAR2(2000);
+  attr_ VARCHAR2(2000);
+  count_ NUMBER;
+BEGIN
+  SELECT COUNT(*) 
+    INTO count_
+    FROM FND_ROLE 
+    WHERE ROLE = 'PIMS_RUNTIME';
+  
+  IF count_ = 0 THEN
+   fnd_role_api.New__(info_ ,objid_ ,objversion_ ,attr_ ,'PREPARE');
+   Client_Sys.Add_To_Attr('ROLE', 'PIMS_RUNTIME', attr_);
+   Client_Sys.Add_To_Attr('DESCRIPTION', 'End User Role for PIMS - Personel Information Management System', attr_);
+   Client_Sys.Add_To_Attr('FND_ROLE_TYPE_DB', 'ENDUSERROLE', attr_);
+   fnd_role_api.New__(info_ ,objid_ ,objversion_ ,attr_ ,'DO');
+   Client_Sys.Clear_Attr(attr_);
+  END IF;
+END;
+/
+
